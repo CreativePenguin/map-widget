@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.GridPane?>
+<?import java.fx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+
+<GridPane xmlns:fx="https://javafx.com/fxml/1" fx:controller="frc.plugin.MyWidget" fx:id="thePane">
+  <Button text="Push Me" GridPane.ColumnIndex="0" GridPane.RowIndex="0" GridPane.RowSpan = "2" onAction="#onButtonPress"/>
+  <Label text = "Default1" fx:id="_negNum" GridPane.RowIndex="0" GridPane.Column.ColumnIndex="1"/>
+  <Label text = "Default2" fx:id="_posNum" GridPane.RowIndex="1" GridPane.Column.ColumnIndex="1"/>/>
+</GridPane>
