@@ -3,9 +3,9 @@ package frc.plugin;
 import edu.wpi.first.shuffleboard.api.widget.Description;
 import edu.wpi.first.shuffleboard.api.widget.ParametrizedController;
 import edu.wpi.first.shuffleboard.api.widget.SimpleAnnotatedWidget;
-import javafx.fxml.ActionEvent;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.layout.Label;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 
 @Description(dataTypes = {boolean.class}, name = "Test Widget")
@@ -33,4 +33,5 @@ public class MyWidget extends SimpleAnnotatedWidget {
 
         _negNum.setText(Integer.toString(_neg));
         _posNum.setText(Integer.toString(_pos));
+    }
 }
