@@ -25,14 +25,16 @@ def getShuffleboardJar() {
     return files(getFrcToolsRoot() + "/tools/shuffleboard.jar")
 }
 
-def getDeployDest() {
+def static getDeployDest() {
     return System.getProperty("user.home") + "/Shuffleboard/plugins"
 }
 
-task deployWidget(type:Copy, group: "Shuffleboard Widget", description: "creates widget", dependsOn: "build") {
-    from "build/libs"
+task ('deployWidget', type:Copy) {
+    dependsOn('build')
+    from ("build/libs") {
+        include "*.jar"
+    }
     into getDeployDest()
-    include "*.jar"
 }
 
 dependencies {
@@ -53,4 +55,5 @@ repositories {
     // Use jcenter for resolving your dependencies.
     // You can declare any Maven/Ivy/file repository here.
     jcenter()
+    mavenCentral()
 }

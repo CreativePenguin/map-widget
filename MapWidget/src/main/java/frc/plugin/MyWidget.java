@@ -8,7 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 
-@Description(dataTypes = {boolean.class}, name = "Test Widget")
+@Description(dataTypes = {Boolean.class}, name = "Test Widget")
 @ParametrizedController(value = "MyWidget.fxml")
 public class MyWidget extends SimpleAnnotatedWidget {
     

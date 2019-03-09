@@ -10,14 +10,15 @@ import edu.wpi.first.shuffleboard.api.plugin.Description;
 import edu.wpi.first.shuffleboard.api.widget.WidgetType;
 import edu.wpi.first.shuffleboard.api.widget.ComponentType;
 
-@Description(group = "Stuypulse 694", name = "Field Map", version="1.0.0", summary="Creates Map")
+@Description(group = "StuyPulse 694", name = "Field Map", version="1.0.0", summary="Creates Map")
 
-public class Library extends Plugin {
-    public boolean someLibraryMethod() {
-        return true;
-    }
-    
+public class App extends Plugin {
+    @Override
+    @SuppressWarnings("all")
     public List<ComponentType> getComponents() {
         return ImmutableList.of(WidgetType.forAnnotatedWidget(MyWidget.class));
+    }
+    public boolean someLibraryMethod() {
+        return false;
     }
 }
