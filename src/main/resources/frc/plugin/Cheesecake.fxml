@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.canvas.Canvas?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            fx:controller="frc.plugin.Cheesecake"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:id="mapPane"
+            prefHeight="515.0" prefWidth="515.0">
+    <Canvas fx:id="mapLayer" width="509.0" height="505.0" />
+    <ChoiceBox fx:id="chooseRobotStartPos" />
+</AnchorPane>

@@ -10,15 +10,12 @@ import edu.wpi.first.shuffleboard.api.plugin.Description;
 import edu.wpi.first.shuffleboard.api.widget.WidgetType;
 import edu.wpi.first.shuffleboard.api.widget.ComponentType;
 
-@Description(group = "StuyPulse 694", name = "Field Map", version="1.0.0", summary="Creates Map")
+@Description(group = "StuyPulse 694", name = "StuyPulse Cheesecake", version="0.0.0", summary="StuyPulse Custom Widgets For Other Teams")
 
 public class App extends Plugin {
     @Override
     @SuppressWarnings("all")
     public List<ComponentType> getComponents() {
-        return ImmutableList.of(WidgetType.forAnnotatedWidget(MyWidget.class));
-    }
-    public boolean someLibraryMethod() {
-        return false;
+        return ImmutableList.of(WidgetType.forAnnotatedWidget(Cheesecake.class));
     }
 }
