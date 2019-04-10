@@ -32,7 +32,7 @@ public class Vector2D {
         return distance(new Vector2D(0, 0));
     }
 
-    public void rotate(double angdeg) {
+    public void rotateSelf(double angdeg) {
         final double radians = Math.toRadians(angdeg);
         final double sin = Math.sin(radians);
         final double cos = Math.cos(radians);
@@ -41,6 +41,17 @@ public class Vector2D {
         
         this.x = oldx*cos - oldy*sin;
         this.y = oldy*cos + oldx*sin;
+    }
+
+    public Vector2D rotate(double angdeg) {
+        final double radians = Math.toRadians(angdeg);
+        final double sin = Math.sin(radians);
+        final double cos = Math.cos(radians);
+        
+        Vector2D out = new Vector2D();
+        out.x = this.x*cos - this.y*sin;
+        out.y = this.y*cos + this.x*sin;
+        return out;
     }
 
     public Vector2D add(Vector2D other) {
