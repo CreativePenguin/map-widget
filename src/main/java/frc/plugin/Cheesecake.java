@@ -21,13 +21,9 @@ import javafx.scene.paint.Color;
 
 import java.util.LinkedList;
 
-import frc.plugin.NetworkTableClient;
-
 @Description(dataTypes = {MapData.class}, name = "Cheesecake")
 @ParametrizedController(value = "Cheesecake.fxml")
 public class Cheesecake extends SimpleAnnotatedWidget<MapData> implements ChangeListener<MapData> {
-
-    private NetworkTableClient table = new NetworkTableClient("StuyMapWidget");
 
     private final SimpleStringProperty robotLengthProperty = new SimpleStringProperty(this, "robotLength", "");
     private final SimpleStringProperty robotWidthProperty = new SimpleStringProperty(this, "robotWidth", "");
@@ -112,12 +108,6 @@ public class Cheesecake extends SimpleAnnotatedWidget<MapData> implements Change
         GraphicsContext gc = mapLayer.getGraphicsContext2D();
         gc.drawImage(fieldMap, 0, 0);
         gc.setFill(Color.RED);
-        
-        // drawRobot(gc, 
-        //     table.getOrSetDouble("RobotWidth"), 
-        //     table.getOrSetDouble("RobotLength"), 
-        //     table.getOrSetDouble("GyroAngle"));
-        
         return mapPane;
     }
 
