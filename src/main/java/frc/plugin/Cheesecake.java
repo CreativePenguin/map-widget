@@ -29,6 +29,7 @@ public class Cheesecake extends SimpleAnnotatedWidget<MapData> implements Change
     private final SimpleStringProperty robotWidthProperty = new SimpleStringProperty(this, "robotWidth", "");
     private final SimpleStringProperty encoderValProperty = new SimpleStringProperty(this, "encoderVal", "");
     private final SimpleStringProperty gyroAngleProperty = new SimpleStringProperty(this, "gyroAngle", "");
+    private final SimpleStringProperty origGyroAngleProperty = new SimpleStringProperty(this, "origGyroAngle", "");
 
     //TODO: Find out how the next two lines cause the code to break
 //    private final double encoderVal = (double) dataProperty().get().get("encoderVal");
@@ -74,6 +75,7 @@ public class Cheesecake extends SimpleAnnotatedWidget<MapData> implements Change
         return ((y - origY) * Math.cos(Math.toRadians(angle)) + (x - origX) * Math.sin(Math.toRadians(angle))) + origY;
     }
 
+    //Add properties to Shuffleboard so that the values the keys correspond to can be used within shuffleboard
     @Override
     public java.util.List<Group> getSettings() {
         LinkedList<Group> propertyList = new LinkedList<>();
@@ -84,7 +86,8 @@ public class Cheesecake extends SimpleAnnotatedWidget<MapData> implements Change
                 Setting.of("Robot Length", robotLengthProperty, String.class),
                 Setting.of("Robot Width", robotWidthProperty, String.class),
                 Setting.of("Encoder Values", encoderValProperty, String.class),
-                Setting.of("Gyro", gyroAngleProperty, String.class)
+                Setting.of("Gyro", gyroAngleProperty, String.class),
+                Setting.of("Original Gyro Val", origGyroAngleProperty, String.class)
             )
         );
 
@@ -128,14 +131,16 @@ public class Cheesecake extends SimpleAnnotatedWidget<MapData> implements Change
 //    }
 //
     private void createChoiceBox() {
-        chooseRobotStartPos = new ChoiceBox<>(FXCollections.observableArrayList("Right Cargo Ship", "Left Cargo Ship", "Middle"));
+        chooseRobotStartPos = new ChoiceBox<>();
+        chooseRobotStartPos.setItems(FXCollections.observableArrayList("Right Cargo Ship", "Left Cargo Ship", "Middle"));
     }
 
     @Override
     public void changed(ObservableValue<? extends MapData> arg0, MapData arg1, MapData arg2) {
         setCoordinates();
         double angle = (double) dataProperty().get().get("gyroAngle");
-        drawRobot(mapLayer.getGraphicsContext2D(), coordinates[0] * INCH_TO_PIXEL, coordinates[1] * INCH_TO_PIXEL, angle);
+        double origAngle = (double) dataProperty().get().get("origGyroAngle");
+        drawRobot(mapLayer.getGraphicsContext2D(), coordinates[0] * INCH_TO_PIXEL, coordinates[1] * INCH_TO_PIXEL, angle - origAngle);
     }
 
 }
