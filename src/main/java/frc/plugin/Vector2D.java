@@ -1,7 +1,5 @@
 package frc.plugin;
 
-import org.bytedeco.javacpp.opencv_core.Mat;
-
 public class Vector2D {
     public double x;
     public double y;
@@ -23,6 +21,10 @@ public class Vector2D {
 
     public double[] getArray() {
         return new double[]{x, y};
+    }
+
+    public boolean equals(Vector2D other) {
+        return this.x == other.x && this.y == other.y;
     }
 
     public double distance(Vector2D other) {
