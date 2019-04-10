@@ -67,7 +67,15 @@ public class Vector2D {
         return new Vector2D(this.x * other.x, this.y * other.y);
     }
 
+    public Vector2D mul(double other) {
+        return new Vector2D(this.x * other, this.y * other);
+    }
+
     public Vector2D div(Vector2D other) {
         return new Vector2D(this.x / other.x, this.y / other.y);
+    }
+
+    public Vector2D div(double other) {
+        return new Vector2D(this.x / other, this.y / other);
     }
 }
