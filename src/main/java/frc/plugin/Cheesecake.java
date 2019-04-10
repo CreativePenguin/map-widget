@@ -30,7 +30,7 @@ public class Cheesecake extends SimpleAnnotatedWidget<MapData> implements Change
     private final SimpleStringProperty encoderValProperty = new SimpleStringProperty(this, "encoderVal", "");
     private final SimpleStringProperty gyroAngleProperty = new SimpleStringProperty(this, "gyroAngle", "");
 
-    /*TODO: Find out how the next two lines cause the code to break*/
+    //TODO: Find out how the next two lines cause the code to break
 //    private final double encoderVal = (double) dataProperty().get().get("encoderVal");
 //    private final double gyroAngle = (double) dataProperty().get().get("gyroAngle");
     private double prevEncoderVal;
@@ -50,16 +50,28 @@ public class Cheesecake extends SimpleAnnotatedWidget<MapData> implements Change
 
     private double[][] drawRobot(GraphicsContext gc, double x, double y, double angle) {
         double[][] val = new double[2][4];
-        double length = (double) dataProperty().get().get("robotLength");
-        double width = (double) dataProperty().get().get("robotWidth");
-        val[0][0] = x;                  val[1][0] = y;
-        val[0][1] = x - length;         val[1][1] = y + width / 2;
-        val[0][2] = x - length * 3 / 4; val[1][2] = y;
-        val[0][3] = x - length;         val[1][3] = y - width / 2;
+        //TODO:FIND OUT WHY THIS LINE BREAKS THE CODE
+//        double length = (double) dataProperty().get().get("robotLength");
+//        double width = (double) dataProperty().get().get("robotWidth");
+        double length = 35.0;
+        double width = 24.0;
+
+        //sets the coordinates for the points of the robot
+        val[0][0] = calcX(x, y, x + length / 2, y, angle);                val[1][0] = calcY(x, y,x + length / 2, y, angle);
+        val[0][1] = calcX(x, y, x - length / 2, y + width / 2, angle); val[1][1] = calcY(x, y,x - length / 2, y + width / 2, angle);
+        val[0][2] = calcX(x, y, x - length / 4, y, angle);                val[1][2] = calcY(x, y,x - length / 4, y, angle);
+        val[0][3] = calcX(x, y, x - length / 2, y - width / 2, angle); val[1][3] = calcY(x, y,x - length / 2, y - width / 2, angle);
 
         gc.fillPolygon(val[0], val[1], 4);
-        gc.rotate(angle);
         return val;
+    }
+
+    private double calcX(double origX, double origY, double x, double y, double angle) {
+        return ((x - origX) * Math.cos(Math.toRadians(angle)) - (y - origY) * Math.sin(Math.toRadians(angle))) + origX;
+    }
+
+    private double calcY(double origX, double origY, double x, double y, double angle) {
+        return ((y - origY) * Math.cos(Math.toRadians(angle)) + (x - origX) * Math.sin(Math.toRadians(angle))) + origY;
     }
 
     @Override
