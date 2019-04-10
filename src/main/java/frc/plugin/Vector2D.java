@@ -21,6 +21,10 @@ public class Vector2D {
         this.y = y;
     }
 
+    public double[] getArray() {
+        return new double[]{x, y};
+    }
+
     public double distance(Vector2D other) {
         double xDis = x - other.x;
         double yDis = y - other.y;
