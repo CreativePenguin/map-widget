@@ -36,14 +36,15 @@ public class Vector2D {
         final double radians = Math.toRadians(angdeg);
         final double sin = Math.sin(radians);
         final double cos = Math.cos(radians);
-        final double X = x - origin.x;
-        final double Y = y - origin.y;
         
-        Vector2D out = new Vector2D();
+        final Vector2D point = this.sub(origin); // center the point around origin
+        Vector2D out = new Vector2D(); // make output variable
 
-        out.x = X*cos - Y*sin + origin.x;
-        out.y = X*cos + X*sin + origin.y;
-        return out;
+        out.x = point.x * cos - point.y * sin; // Rotate coords
+        out.y = point.y * cos + point.x * sin;
+
+        // reposition point
+        return out.add(origin);
     }
 
     public Vector2D rotate(double angdeg) {
