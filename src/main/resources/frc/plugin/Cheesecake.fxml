@@ -13,5 +13,6 @@
             fx:id="mapPane"
             prefHeight="515.0" prefWidth="515.0">
     <Canvas fx:id="mapLayer" width="509.0" height="505.0" />
+    <Canvas fx:id="robotLayer" width="509.0" height="505.0"/>
     <ChoiceBox fx:id="chooseRobotStartPos" />
 </AnchorPane>

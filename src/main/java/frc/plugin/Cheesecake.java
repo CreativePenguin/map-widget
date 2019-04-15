@@ -9,7 +9,6 @@ import edu.wpi.first.shuffleboard.api.widget.SimpleAnnotatedWidget;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -44,6 +43,8 @@ public class Cheesecake extends SimpleAnnotatedWidget<MapData> implements Change
     AnchorPane mapPane;
     @FXML
     Canvas mapLayer;
+    @FXML
+    Canvas robotLayer;
 //    @FXML
 //    ChoiceBox<StartingPos> chooseRobotStartPos;
 
@@ -51,12 +52,12 @@ public class Cheesecake extends SimpleAnnotatedWidget<MapData> implements Change
     ChoiceBox<String> chooseRobotStartPos;
 
     private double[][] drawRobot(GraphicsContext gc, double x, double y, double angle) {
+        gc.clearRect(0,0,505,509);
         double[][] val = new double[2][4];
-        //TODO:FIND OUT WHY THIS LINE BREAKS THE CODE
-//        double length = (double) dataProperty().get().get("robotLength");
-//        double width = (double) dataProperty().get().get("robotWidth");
-        double length = 35.0;
-        double width = 24.0;
+        double length = (double) dataProperty().get().get("robotLength");
+        double width = (double) dataProperty().get().get("robotWidth");
+//        double length = 35.0;
+//        double width = 24.0;
 
         //sets the coordinates for the points of the robot
         val[0][0] = calcX(x, y, x + length / 2, y, angle);                val[1][0] = calcY(x, y,x + length / 2, y, angle);
@@ -108,10 +109,13 @@ public class Cheesecake extends SimpleAnnotatedWidget<MapData> implements Change
     @Override
     public Pane getView() {
         Image fieldMap = new Image(getClass().getResourceAsStream("2019-FieldMap.png"));
-        createChoiceBox();
-        GraphicsContext gc = mapLayer.getGraphicsContext2D();
-        gc.drawImage(fieldMap, 0, 0);
-        gc.setFill(Color.RED);
+//        createChoiceBox();
+        GraphicsContext gcMap = mapLayer.getGraphicsContext2D();
+        GraphicsContext gcRobot = robotLayer.getGraphicsContext2D();
+        gcMap.drawImage(fieldMap, 0, 0);
+        gcRobot.setFill(Color.RED);
+        drawRobot(gcRobot,100,100,0);
+        gcRobot.clearRect(0,0,100,100);
         return mapPane;
     }
 
@@ -138,6 +142,13 @@ public class Cheesecake extends SimpleAnnotatedWidget<MapData> implements Change
         chooseRobotStartPos.getItems().add("Middle");
         chooseRobotStartPos.getItems().add("Right Cargo Ship");
         chooseRobotStartPos.getItems().add("Right Rocket");
+        chooseRobotStartPos.getSelectionModel().selectedItemProperty()
+                .addListener(new ChangeListener<String>() {
+                    @Override
+                    public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
+//                        drawRobot(robotLayer.getGraphicsContext2D(), )
+                    }
+                });
     }
 
     @Override
@@ -145,7 +156,7 @@ public class Cheesecake extends SimpleAnnotatedWidget<MapData> implements Change
         setCoordinates();
         double angle = (double) dataProperty().get().get("gyroAngle");
         double origAngle = (double) dataProperty().get().get("origGyroAngle");
-        drawRobot(mapLayer.getGraphicsContext2D(), coordinates[0] * INCH_TO_PIXEL, coordinates[1] * INCH_TO_PIXEL, angle - origAngle);
+        drawRobot(robotLayer.getGraphicsContext2D(), coordinates[0] * INCH_TO_PIXEL, coordinates[1] * INCH_TO_PIXEL, angle - origAngle);
     }
 
 }
