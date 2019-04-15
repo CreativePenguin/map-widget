@@ -25,6 +25,7 @@ import java.util.LinkedList;
 @ParametrizedController(value = "Cheesecake.fxml")
 public class Cheesecake extends SimpleAnnotatedWidget<MapData> implements ChangeListener<MapData> {
 
+//These are the inputs that shuffleboard will accept
     private final SimpleStringProperty robotLengthProperty = new SimpleStringProperty(this, "robotLength", "");
     private final SimpleStringProperty robotWidthProperty = new SimpleStringProperty(this, "robotWidth", "");
     private final SimpleStringProperty encoderValProperty = new SimpleStringProperty(this, "encoderVal", "");
@@ -132,7 +133,11 @@ public class Cheesecake extends SimpleAnnotatedWidget<MapData> implements Change
 //
     private void createChoiceBox() {
         chooseRobotStartPos = new ChoiceBox<>();
-        chooseRobotStartPos.setItems(FXCollections.observableArrayList("Right Cargo Ship", "Left Cargo Ship", "Middle"));
+        chooseRobotStartPos.getItems().add("Left Cargo Ship");
+        chooseRobotStartPos.getItems().add("Left Rocket");
+        chooseRobotStartPos.getItems().add("Middle");
+        chooseRobotStartPos.getItems().add("Right Cargo Ship");
+        chooseRobotStartPos.getItems().add("Right Rocket");
     }
 
     @Override
