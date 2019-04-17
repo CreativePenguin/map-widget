@@ -21,12 +21,12 @@ protected void robotInit() {
     origGyroAngle = fieldMap.getEntry("OriginalGyroAngle"); //Gyro angle at the start of match
     robotLength = fieldMap.getEntry("RobotLength");
     origGyroAngle.setDefaultDouble(drivetrain.getGyroAngle());
+    robotLength.setDefaultDouble(35.0);
+    robotWidth.setDefaultDouble(24.0);
 }
 
 @Override
 protected void robotPeriodic() {
     encoderDist.setDouble(drivetrain.getGreyhillDistance());
     gyroAngle.setDouble(drivetrain.getGyroAngle());
-    robotLength.setDefaultDouble(35.0);
-    robotWidth.setDefaultDouble(24.0);
 }
