@@ -9,7 +9,6 @@ import edu.wpi.first.shuffleboard.api.widget.SimpleAnnotatedWidget;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -44,6 +43,8 @@ public class Cheesecake extends SimpleAnnotatedWidget<MapData> implements Change
     AnchorPane mapPane;
     @FXML
     Canvas mapLayer;
+    @FXML
+    Canvas robotLayer;
 //    @FXML
 //    ChoiceBox<StartingPos> chooseRobotStartPos;
 
@@ -112,6 +113,9 @@ public class Cheesecake extends SimpleAnnotatedWidget<MapData> implements Change
         GraphicsContext gc = mapLayer.getGraphicsContext2D();
         gc.drawImage(fieldMap, 0, 0);
         gc.setFill(Color.RED);
+        GraphicsContext tmp = robotLayer.getGraphicsContext2D();
+        drawRobot(tmp, 100, 100, 0);
+        tmp.clearRect(0, 0, 100, 100);
         return mapPane;
     }
 
