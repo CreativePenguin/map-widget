@@ -11,7 +11,7 @@ Default code on Stuypulse 694 (Robot.java):
 NetworkTable fieldMap;
 NetworkTableEntry encoderDist;
 NetworkTableEntry gyroAngle;
-NetworkTableEntry origGyroAngle
+NetworkTableEntry origGyroAngle;
 
 @Override
 protected void robotInit() {
