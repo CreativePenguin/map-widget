@@ -1,5 +1,8 @@
 package frc.plugin;
 
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.shuffleboard.api.data.MapData;
 import edu.wpi.first.shuffleboard.api.prefs.Group;
 import edu.wpi.first.shuffleboard.api.prefs.Setting;
@@ -45,11 +48,16 @@ public class Cheesecake extends SimpleAnnotatedWidget<MapData> implements Change
     Canvas mapLayer;
     @FXML
     Canvas robotLayer;
+
 //    @FXML
 //    ChoiceBox<StartingPos> chooseRobotStartPos;
 
     @FXML
     ChoiceBox<String> chooseRobotStartPos;
+
+    public Cheesecake() {
+        dataProperty().addListener(this);
+    }
 
     private double[][] drawRobot(GraphicsContext gc, double x, double y, double angle) {
         gc.clearRect(0,0,505,509);
