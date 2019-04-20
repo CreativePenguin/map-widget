@@ -12,21 +12,25 @@ NetworkTable fieldMap;
 NetworkTableEntry encoderDist;
 NetworkTableEntry gyroAngle;
 NetworkTableEntry origGyroAngle;
+NetworkTableEntry robotLength;
+NetworkTableEntry robotWidth;
 
 @Override
-protected void robotInit() {
-    fieldMap = NetworkTableInstace.getDefault().getTable("FieldMap");
-    encoderDist = fieldMap.getEntry("EncoderDistance");
+public void robotInit() {
+    fieldMap = NetworkTableInstance.getDefault().getTable("FieldMap");
+    encoderDist = fieldMap.getEntry("EncoderValues");
     gyroAngle = fieldMap.getEntry("GyroAngle");
     origGyroAngle = fieldMap.getEntry("OriginalGyroAngle"); //Gyro angle at the start of match
     robotLength = fieldMap.getEntry("RobotLength");
+    robotWidth = fieldMap.getEntry("RobotWidth");
     origGyroAngle.setDefaultDouble(drivetrain.getGyroAngle());
     robotLength.setDefaultDouble(35.0);
     robotWidth.setDefaultDouble(24.0);
 }
 
 @Override
-protected void robotPeriodic() {
+public void robotPeriodic() {
     encoderDist.setDouble(drivetrain.getGreyhillDistance());
     gyroAngle.setDouble(drivetrain.getGyroAngle());
 }
+```

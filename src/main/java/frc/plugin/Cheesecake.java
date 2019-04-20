@@ -52,9 +52,9 @@ public class Cheesecake extends SimpleAnnotatedWidget<MapData> implements Change
    ChoiceBox<StartingPos> chooseRobotStartPos;
     // @FXML
     // ChoiceBox<String> chooseRobotStartPos;
-
     //Variable dataProperty() refers to the <MapData> in the generic
     //In this case, the data property is the FieldMap shuffleboard table
+
     public Cheesecake() {
         dataProperty().addListener(this);
     }
@@ -104,7 +104,7 @@ public class Cheesecake extends SimpleAnnotatedWidget<MapData> implements Change
                 Setting.of("Robot Length", robotLengthProperty, String.class),
                 Setting.of("Robot Width", robotWidthProperty, String.class),
                 Setting.of("Encoder Values", encoderValProperty, String.class),
-                Setting.of("Gyro", gyroAngleProperty, String.class),
+                Setting.of("Gyro Angle", gyroAngleProperty, String.class),
                 Setting.of("Original Gyro Angle", origGyroAngleProperty, String.class)
             )
         );
