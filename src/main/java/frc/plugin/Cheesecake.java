@@ -15,6 +15,7 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
@@ -72,8 +73,6 @@ public class Cheesecake extends SimpleAnnotatedWidget<MapData> implements Change
             length = 35.0;
             width = 24.0;
         }
-    //    double length = 35.0;
-    //    double width = 24.0;
 
         //sets the coordinates for the points of the robot
         val[0][0] = calcX(x, y, x + length / 2, y, angle);                val[1][0] = calcY(x, y,x + length / 2, y, angle);
@@ -174,6 +173,12 @@ public class Cheesecake extends SimpleAnnotatedWidget<MapData> implements Change
 //                 });
 //     }
 
+    //Alert Statement for testing purposes
+    private void alert(String msg) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION, msg);
+        alert.show();
+    }
+
     @Override
     public void changed(ObservableValue<? extends MapData> arg0, MapData arg1, MapData arg2) {
         setCoordinates();
@@ -186,6 +191,7 @@ public class Cheesecake extends SimpleAnnotatedWidget<MapData> implements Change
             origAngle = 0;
         }
         drawRobot(robotLayer.getGraphicsContext2D(), coordinates[0] * INCH_TO_PIXEL, coordinates[1] * INCH_TO_PIXEL, angle - origAngle);
+        // alert("owo -_- :D");
     }
 
 }

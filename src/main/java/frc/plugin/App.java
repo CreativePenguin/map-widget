@@ -10,7 +10,7 @@ import edu.wpi.first.shuffleboard.api.plugin.Description;
 import edu.wpi.first.shuffleboard.api.widget.WidgetType;
 import edu.wpi.first.shuffleboard.api.widget.ComponentType;
 
-@Description(group = "StuyPulse 694", name = "StuyPulse Cheesecake", version="0.0.0", summary="StuyPulse Custom Widgets For Other Teams")
+@Description(group = "StuyPulse 694", name = "StuyPulse Cheesecake", version="0.0.1", summary="StuyPulse Custom Widgets For Other Teams")
 
 public class App extends Plugin {
     @Override
