@@ -1,7 +1,5 @@
 package frc.plugin;
 
-import java.util.LinkedList;
-
 import edu.wpi.first.shuffleboard.api.data.MapData;
 import edu.wpi.first.shuffleboard.api.prefs.Group;
 import edu.wpi.first.shuffleboard.api.prefs.Setting;
@@ -22,6 +20,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
+import java.util.LinkedList;
+
 @Description(dataTypes = { MapData.class }, name = "Cheesecake")
 @ParametrizedController(value = "Cheesecake.fxml")
 public class Cheesecake extends SimpleAnnotatedWidget<MapData> implements ChangeListener<MapData> {
@@ -32,12 +32,9 @@ public class Cheesecake extends SimpleAnnotatedWidget<MapData> implements Change
     private final SimpleStringProperty encoderValProperty = new SimpleStringProperty(this, "encoderVal", "");
     private final SimpleStringProperty gyroAngleProperty = new SimpleStringProperty(this, "gyroAngle", "");
     private final SimpleStringProperty origGyroAngleProperty = new SimpleStringProperty(this, "origGyroAngle", "");
+    private final SimpleStringProperty startPositionProperty = new SimpleStringProperty(this, "startPosition", "");
+    private final SimpleStringProperty startPositionChooserProperty = new SimpleStringProperty(this, "startPositionChooser", "");
 
-    // TODO: Find out how the next two lines cause the code to break
-    // private final double encoderVal = (double)
-    // dataProperty().get().get("encoderVal");
-    // private final double gyroAngle = (double)
-    // dataProperty().get().get("gyroAngle");
     private double prevEncoderVal;
     private double[] coordinates = new double[2];
     final double INCH_TO_PIXEL = 1.518714;
@@ -104,7 +101,9 @@ public class Cheesecake extends SimpleAnnotatedWidget<MapData> implements Change
                 Setting.of("Robot Width", robotWidthProperty, String.class),
                 Setting.of("Encoder Values", encoderValProperty, String.class),
                 Setting.of("Gyro Angle", gyroAngleProperty, String.class),
-                Setting.of("Original Gyro Angle", origGyroAngleProperty, String.class)
+                Setting.of("Original Gyro Angle", origGyroAngleProperty, String.class),
+                Setting.of("Start Position", startPositionProperty, String.class),
+                Setting.of("Start Position Chooser", startPositionChooserProperty, String.class)
             )
         );
 
@@ -130,13 +129,21 @@ public class Cheesecake extends SimpleAnnotatedWidget<MapData> implements Change
     @Override
     public Pane getView() {
         Image fieldMap = new Image(getClass().getResourceAsStream("2019-FieldMap.png"));
-       createChoiceBox();
+//        createChoiceBox();
         GraphicsContext gcMap = mapLayer.getGraphicsContext2D();
         GraphicsContext gcRobot = robotLayer.getGraphicsContext2D();
         gcMap.drawImage(fieldMap, 0, 0);
         // gcRobot.setFill(Color.RED);
         // drawRobot(gcRobot,100,100,0);
         // gcRobot.clearRect(0,0,100,100);
+        double[] startCoor;
+        try {
+            startCoor = (double[]) dataProperty().get().get("startPosition");
+        } catch(NullPointerException bigoof) {
+            startCoor = new double[3];
+        }
+        drawRobot(gcRobot, startCoor[0], startCoor[1], startCoor[2]);
+        alert(dataProperty().get().get("startPosition").toString());
         return mapPane;
     }
 
@@ -145,7 +152,6 @@ public class Cheesecake extends SimpleAnnotatedWidget<MapData> implements Change
        chooseRobotStartPos.setItems(FXCollections.observableArrayList(
                StartingPos.LEFT_CS, StartingPos.MID, StartingPos.RIGHT_CS
        ));
-       //TODO: Replace this with lambda :D
        chooseRobotStartPos.getSelectionModel().selectedItemProperty()
                .addListener((x, y, z) -> drawRobot(robotLayer.getGraphicsContext2D(), z.x, z.y, 0));
             //    ChangeListener<>() {
@@ -154,25 +160,9 @@ public class Cheesecake extends SimpleAnnotatedWidget<MapData> implements Change
                     //    drawRobot(mapLayer.getGraphicsContext2D(), t1.x, t1.y, 0);
                 //    }
             //    });
-       chooseRobotStartPos.setValue(StartingPos.RIGHT_CS);
+//       chooseRobotStartPos.setValue(StartingPos.RIGHT_CS);
    }
 //
-//     private void createChoiceBox() {
-//         chooseRobotStartPos = new ChoiceBox<>();
-//         chooseRobotStartPos.getItems().add("Left Cargo Ship");
-//         chooseRobotStartPos.getItems().add("Left Rocket");
-//         chooseRobotStartPos.getItems().add("Middle");
-//         chooseRobotStartPos.getItems().add("Right Cargo Ship");
-//         chooseRobotStartPos.getItems().add("Right Rocket");
-//         chooseRobotStartPos.getSelectionModel().selectedItemProperty()
-//                 .addListener(new ChangeListener<String>() {
-//                     @Override
-//                     public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-// //                        drawRobot(robotLayer.getGraphicsContext2D(), )
-//                     }
-//                 });
-//     }
-
     //Alert Statement for testing purposes
     private void alert(String msg) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION, msg);
